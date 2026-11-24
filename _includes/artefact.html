@@ -1,0 +1,19 @@
+{%- comment -%}
+Artefact (fulfen-ui, ADR-0037): a real output shown as it is. Capture the body first, then include:
+{% capture body %}$ make eval
+12 passed, 0 failed{% endcapture %}
+{% include artefact.html label="Terminal" name="make eval" kind="terminal" body=body caption="What the run printed." %}
+kind is "code" (default), "terminal" or "text" (body is Markdown).
+{%- endcomment -%}
+{%- assign kind = include.kind | default: "code" -%}
+<figure class="fulfen-artefact{% if kind == 'terminal' %} fulfen-artefact--terminal{% elsif kind == 'text' %} fulfen-artefact--text{% endif %}">
+<div class="fulfen-artefact__bar"><span>{{ include.label | default: "Artefact" }}</span>{% if include.name %}<span class="fulfen-artefact__name">{{ include.name }}</span>{% endif %}</div>
+{%- if kind == "text" %}
+<div class="fulfen-artefact__body fulfen-artefact__body--text">{{ include.body | markdownify }}</div>
+{%- else %}
+<pre class="fulfen-artefact__body" tabindex="0"><code>{{ include.body | strip | escape }}</code></pre>
+{%- endif %}
+{%- if include.caption %}
+<figcaption class="fulfen-artefact__caption">{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
+{%- endif %}
+</figure>

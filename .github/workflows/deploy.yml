@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+# Builds the site with GitHub Pages' own Jekyll image and deploys it to https://fulfenlabs.io/kb/.
+# Pages source: "GitHub Actions". No IndexNow or sitemap ping: those wait for launch (ADR-0041).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1.0.13
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Check the launch gate
+        run: |
+          set -euo pipefail
+          if grep -Eq '^launched:[[:space:]]*true' _config.yml; then
+            echo "launched: true; the gate is open"
+            exit 0
+          fi
+          missing=$(grep -L 'name="robots" content="noindex,nofollow"' $(find _site -name '*.html') || true)
+          if [ -n "$missing" ]; then
+            echo "::error::Pages without noindex while launched is false:"; echo "$missing"; exit 1
+          fi
+          grep -q '^Disallow: /$' _site/robots.txt || { echo "::error::robots.txt does not disallow all"; exit 1; }
+          echo "Gate closed: every page is noindex,nofollow"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

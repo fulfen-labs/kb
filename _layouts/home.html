@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<div class="wrap">
+<div class="hero fulfen-leadspace"><div class="frame fulfen-leadspace__frame">
+<p class="pn fulfen-leadspace__eyebrow">Fulfen Labs · Knowledge base</p>
+<h1 class="fulfen-leadspace__title">{{ page.heading | default: site.title }}</h1>
+<p class="lede fulfen-leadspace__lede">{{ page.lede | default: site.description }}</p>
+<div class="rule fulfen-leadspace__rule" aria-hidden="true"></div>
+<ul class="fulfen-links"><li><a href="#articles">Read the articles</a></li><li><a href="{{ '/about/' | relative_url }}">How articles are made</a></li></ul>
+</div></div>
+</div>
+<section id="articles" aria-labelledby="articles-h"><div class="wrap">
+<h2 id="articles-h">Articles</h2>
+<p class="sub">{{ site.posts.size }} {% if site.posts.size == 1 %}article{% else %}articles{% endif %}, newest first.</p>
+{% include post-list.html posts=site.posts %}
+{{ content }}
+</div></section>

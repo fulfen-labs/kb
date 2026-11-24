@@ -1,0 +1,14 @@
+{%- comment -%}
+DocNav (fulfen-ui, ADR-0037) built from the article's h2 headings (kramdown gives them ids), plus the closing
+sections the layout adds. fulfen-page.js opens it beside the text from 66rem and marks the section being read.
+{%- endcomment -%}
+{%- assign parts = include.html | split: '<h2 id="' -%}
+<nav class="fulfen-docnav" aria-label="On this page"><p class="pn fulfen-docnav__label" aria-hidden="true">On this page</p><details open><summary>On this page</summary><ol>
+{%- for part in parts offset: 1 -%}
+{%- assign hid = part | split: '"' | first -%}
+{%- assign label = part | remove_first: hid | remove_first: '">' | split: '</h2>' | first | strip_html | strip -%}
+<li><a href="#{{ hid }}">{{ label }}</a></li>
+{%- endfor -%}
+{%- if page.handbook -%}<li><a href="#in-the-handbook">In the handbook</a></li>{%- endif -%}
+{%- if page.sources -%}<li><a href="#sources">Sources</a></li>{%- endif -%}
+</ol></details></nav>

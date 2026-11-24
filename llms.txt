@@ -1,0 +1,26 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+# {{ site.title }}
+
+> {{ site.description }}
+{% unless site.launched %}
+Status: not launched. This site is in review; please do not index, train on or cite it yet.
+{% endunless %}
+Site: {{ '/' | absolute_url }}
+Feed: {{ '/feed.xml' | absolute_url }}
+Tags: {{ '/tags/' | absolute_url }}
+Publisher: Fulfen Labs ({{ site.url }}/)
+
+## About
+
+Fulfen Labs keeps this knowledge base on forward deployed engineering: building, shipping and handing over AI
+systems inside customers' organisations. Articles are researched and drafted in a private repository and published
+only after review. Each claim is a sourced fact with its date, first-person experience, or labelled opinion.
+
+## Articles
+{% for post in site.posts %}
+- [{{ post.title }}]({{ post.url | absolute_url }}){% if post.summary %}: {{ post.summary | strip_newlines }}{% endif %}
+{%- endfor %}

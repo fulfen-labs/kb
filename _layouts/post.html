@@ -1,0 +1,38 @@
+---
+layout: default
+---
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign minutes = words | divided_by: 200 -%}{%- if minutes < 1 -%}{%- assign minutes = 1 -%}{%- endif -%}
+<div class="wrap">
+<div class="article-head">
+<p class="pn">Article · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %b %Y" | upcase }}</time></p>
+<h1>{{ page.title | escape }}</h1>
+{%- if page.author %}<p class="byline">{{ page.author | escape }}</p>{% endif %}
+{%- if page.summary %}<p class="lede">{{ page.summary | escape }}</p>{% endif %}
+<p class="meta"><span>{{ minutes }} min read</span>{% if page.reviewed %}<span>Last reviewed <time datetime="{{ page.reviewed | date: '%Y-%m-%d' }}">{{ page.reviewed | date: "%-d %b %Y" | upcase }}</time></span>{% endif %}</p>
+{%- if page.tags.size > 0 %}
+<ul class="tags" aria-label="Tags">{% for tag in page.tags %}<li><a href="{{ '/tags/' | relative_url }}#tag-{{ tag | slugify }}">{{ tag }}</a></li>{% endfor %}</ul>
+{%- endif %}
+</div>
+</div>
+<section><div class="wrap fulfen-docnav-layout">
+{% include docnav.html html=content %}
+<article class="doc">
+{{ content }}
+{%- if page.handbook %}
+<section class="handbook" aria-labelledby="in-the-handbook">
+<h2 id="in-the-handbook">In the handbook</h2>
+<p>Where <cite>The Forward Deployed Engineer's Handbook</cite> covers the same ground:</p>
+<ul>{% for ch in page.handbook %}{% assign n = ch | append: "" %}<li>Chapter {{ n }}{% if site.data.handbook[n] %}: {{ site.data.handbook[n] }}{% endif %}</li>{% endfor %}</ul>
+</section>
+{%- endif %}
+{%- if page.sources %}
+<section class="sources" aria-labelledby="sources">
+<h2 id="sources">Sources</h2>
+<ol>{% for s in page.sources %}<li>{% if s.url %}<a href="{{ s.url }}">{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}{% if s.publisher %}<span class="pub">, {{ s.publisher }}</span>{% endif %}{% if s.published %}, published {{ s.published }}{% endif %}{% if s.checked %}; checked <time datetime="{{ s.checked | date: '%Y-%m-%d' }}">{{ s.checked | date: "%-d %B %Y" }}</time>{% endif %}</li>{% endfor %}</ol>
+</section>
+{%- endif %}
+<div class="note provenance"><p>{% if page.provenance %}{{ page.provenance }}{% else %}Researched and drafted with AI tools; reviewed and edited by Daniel Vaughan.{% if page.checked %} Sources checked on <time datetime="{{ page.checked | date: '%Y-%m-%d' }}">{{ page.checked | date: "%-d %B %Y" }}</time>.{% endif %}{% endif %}</p>
+<p>Every claim here is a sourced fact with its date, the author's own experience said as his, or opinion labelled as opinion.</p></div>
+</article>
+</div></section>

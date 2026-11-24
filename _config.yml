@@ -1,0 +1,56 @@
+# Fulfen Labs FDE knowledge base: a Jekyll site at https://fulfenlabs.io/kb/ (an organisation project site under the
+# fulfenlabs.io custom domain, so there is no CNAME file here). Articles arrive in _posts/ from the private repository
+# fulfen-labs/fde-research (scripts/sync-to-kb.sh); only the templates are edited here. Decisions: fulfen-labs
+# ADR-0040 and ADR-0041.
+
+title: "FDE Knowledge Base"
+description: "Sourced, dated articles on forward deployed engineering, from Fulfen Labs."
+url: "https://fulfenlabs.io"
+baseurl: "/kb"
+lang: en-GB
+timezone: Europe/London
+
+# LAUNCH GATE (ADR-0041). While false, every page carries <meta name="robots" content="noindex,nofollow">,
+# robots.txt disallows everything, sitemap.xml lists nothing and llms.txt says the site is not launched.
+# Launching is this one line, changed only on the owner's yes. Nothing on fulfenlabs.io links here until then.
+launched: false
+
+permalink: /:slug/   # short British slugs from front matter, fixed before launch so URLs never change (owner, 24 Nov 2026)
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+  syntax_highlighter_opts:
+    disable: true
+
+# Only plugins GitHub Pages allows (the build uses actions/jekyll-build-pages).
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - README.md
+  - AGENTS.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .github/
+  - scripts/
+
+# No remote theme: the layouts here are the whole design.
+theme: null

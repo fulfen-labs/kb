@@ -1,0 +1,24 @@
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{%- assign page_title = page.title | default: site.title -%}
+<title>{% if page.url == "/" %}{{ site.title }} · Fulfen Labs{% else %}{{ page_title | escape }} · {{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ page.description | default: page.summary | default: site.description | strip_html | strip_newlines | escape }}">
+{%- comment -%} LAUNCH GATE (ADR-0041): one flag, site.launched, in _config.yml. {%- endcomment -%}
+{%- if site.launched %}
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+{%- else %}
+<meta name="robots" content="noindex,nofollow">
+{%- endif %}
+<meta name="theme-color" content="#0A0B0D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0B0D'/%3E%3Cpath d='M5 12V5h7M20 5h7v7M27 20v7h-7M12 27H5v-7' fill='none' stroke='%23E9E6DE' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F2A43A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/fulfen-page.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/kb.css' | relative_url }}">
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+<script src="{{ '/assets/js/fulfen-page.js' | relative_url }}" defer></script>
+{%- for js in page.scripts %}
+<script src="{{ js | relative_url }}" defer></script>
+{%- endfor %}
+</head>

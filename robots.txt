@@ -1,0 +1,17 @@
+---
+layout: null
+permalink: /robots.txt
+sitemap: false
+---
+# {{ site.title }} ({{ site.url }}{{ site.baseurl }}/)
+{%- if site.launched %}
+User-agent: *
+Allow: /
+
+Sitemap: {{ '/sitemap.xml' | absolute_url }}
+{%- else %}
+# Not launched (ADR-0041): nothing here is to be crawled or indexed. Every page also carries
+# <meta name="robots" content="noindex,nofollow">, which is the gate crawlers obey for a path under a host.
+User-agent: *
+Disallow: /
+{%- endif %}

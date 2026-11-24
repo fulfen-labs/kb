@@ -1,0 +1,14 @@
+---
+title: Search
+permalink: /search/
+eyebrow: Knowledge base · Search
+lede: Search the titles, summaries, tags and text of every article.
+scripts:
+  - /assets/js/search.js
+---
+<form class="search" role="search" action="{{ '/search/' | relative_url }}" data-index="{{ '/search.json' | relative_url }}">
+<label for="q">Search articles</label>
+<input type="search" id="q" name="q" autocomplete="off" spellcheck="false">
+<p class="status" id="search-status" role="status" aria-live="polite"><noscript>Search needs JavaScript. Every article is listed on the <a href="{{ '/' | relative_url }}">home page</a> and under <a href="{{ '/tags/' | relative_url }}">Tags</a>.</noscript></p>
+<ol class="posts" id="search-results" hidden></ol>
+</form>

@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<div class="wrap">
+<div class="article-head">
+<p class="pn">{{ page.eyebrow | default: "Knowledge base" }}</p>
+<h1>{{ page.title | escape }}</h1>
+{%- if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+</div>
+<div class="doc page-body">
+{{ content }}
+</div>
+</div>
+<div class="wrap" style="padding-bottom:clamp(48px,7vw,96px)"></div>

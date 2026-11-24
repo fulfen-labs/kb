@@ -1,0 +1,9 @@
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap"><a class="brand" href="{{ '/' | relative_url }}"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path class="tk" d="M2 10V2h8M22 2h8v8M30 22v8h-8M10 30H2v-8"/><circle class="nd" cx="16" cy="16" r="4"/></svg>Fulfen <span>Labs</span><span class="kb">Knowledge base</span></a>
+<nav aria-label="Main">
+{%- assign here = page.url -%}
+<a href="{{ '/' | relative_url }}"{% if here == "/" %} aria-current="page"{% endif %}>Articles</a>
+<a href="{{ '/tags/' | relative_url }}"{% if here == "/tags/" %} aria-current="page"{% endif %}>Tags</a>
+<a href="{{ '/search/' | relative_url }}"{% if here == "/search/" %} aria-current="page"{% endif %}>Search</a>
+<a href="{{ '/feed.xml' | relative_url }}">Feed</a>
+</nav></div></header>

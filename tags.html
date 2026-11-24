@@ -1,0 +1,18 @@
+---
+title: Tags
+permalink: /tags/
+eyebrow: Knowledge base · Index
+lede: Every article, grouped by tag.
+---
+{%- assign names = "" | split: "" -%}
+{%- for t in site.tags -%}{%- assign names = names | push: t[0] -%}{%- endfor -%}
+{%- assign names = names | sort_natural -%}
+{%- if names.size == 0 %}
+<p class="empty">No tags yet.</p>
+{%- endif %}
+{%- for name in names %}
+<div class="tag-group" id="tag-{{ name | slugify }}">
+<h2>{{ name }}<span class="count">{{ site.tags[name].size }}</span></h2>
+<ul>{% for post in site.tags[name] %}<li><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a> <span class="meta">{{ post.date | date: "%-d %b %Y" | upcase }}</span></li>{% endfor %}</ul>
+</div>
+{%- endfor %}

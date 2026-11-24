@@ -1,0 +1,8 @@
+{%- comment -%}
+SourcedClaim (fulfen-ui, ADR-0037): a claim with its source and date. Use in an article:
+{% include claim.html text="The claim, in one or two sentences." source="Publisher, title" url="https://..." date="2026-11-24" %}
+{%- endcomment -%}
+<figure class="fulfen-claim">
+<blockquote class="fulfen-claim__text"><p>{{ include.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p></blockquote>
+<figcaption class="fulfen-claim__source">{% if include.date %}<time class="fulfen-claim__date" datetime="{{ include.date }}">{{ include.date | date: "%-d %b %Y" | upcase }}</time>{% endif %}<cite>{% if include.url %}<a href="{{ include.url }}">{{ include.source }}</a>{% else %}{{ include.source }}{% endif %}</cite></figcaption>
+</figure>
