@@ -27,6 +27,10 @@ On 24 November 2026:
 - `_posts/` holds one post, `2026-11-24-about.md` ("About this knowledge base"), which belongs to this repository.
   No article has been published yet: seven drafts wait for the owner's review in `fde-research/drafts/`.
 - **`launched: false`** in `_config.yml`.
+- Pages open in the light theme (fulfen-labs ADR-0039 amendment, owner, 24 November 2026). The sun/moon button in
+  the header switches to the dark (ink) theme; `_includes/head.html` applies a saved choice before the first paint, kept
+  in `localStorage` under `fulfen-theme`, the same key as fulfenlabs.io, so the choice carries between the two. Without
+  JavaScript the page is light. The header stays ink in both themes.
 
 ## The launch flag
 
@@ -63,7 +67,7 @@ Edit only the templates: `_layouts/`, `_includes/`, `assets/`, the pages (`index
 | `_data/handbook.yml` | Chapter titles of *The Forward Deployed Engineer's Handbook* (from its `manuscript/Book.txt`, commit 7e1f029) |
 | `_posts/` | The articles, synced from `fde-research`; plus the "About" post |
 | `assets/css/fulfen-page.css`, `assets/js/fulfen-page.js` | fulfen-ui's page templates (Leadspace, DocNav, SourcedClaim, Artefact), copied from fulfen-labs `site/fulfen-ui/`; refresh from there, never edit here |
-| `assets/css/kb.css` | The website look: tokens from fulfen-labs `assets/brand/fulfen-tokens.json` (v1.0.0), base rules from its `tools/site.py`, and this site's own rules |
+| `assets/css/kb.css` | The website look: tokens from fulfen-labs `assets/brand/fulfen-tokens.json` (v1.0.0), base rules from its `tools/site.py`, and this site's own rules; at the end, a copy of `site.py`'s `THEME_CSS`: the light theme (the default) and the theme toggle's look |
 | `assets/js/search.js` | Search over `search.json`; no dependencies, no storage |
 | `.github/workflows/deploy.yml` | Build with `actions/jekyll-build-pages`, check the gate, deploy |
 

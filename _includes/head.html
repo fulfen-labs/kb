@@ -1,6 +1,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>(function(d){var r=d.documentElement,k='fulfen-theme';try{if(localStorage.getItem(k)==='dark')r.setAttribute('data-theme','dark')}catch(e){}function sync(){var n=r.getAttribute('data-theme')==='dark'?'light':'dark',b=d.querySelectorAll('.theme-toggle');for(var i=0;i<b.length;i++){b[i].hidden=false;b[i].setAttribute('aria-label','Switch to '+n+' theme')}}d.addEventListener('DOMContentLoaded',sync);d.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('.theme-toggle');if(!b)return;var t=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',t);try{localStorage.setItem(k,t)}catch(e){}sync()})})(document)</script>
 {%- assign page_title = page.title | default: site.title -%}
 <title>{% if page.url == "/" %}{{ site.title }} · Fulfen Labs{% else %}{{ page_title | escape }} · {{ site.title }}{% endif %}</title>
 <meta name="description" content="{{ page.description | default: page.summary | default: site.description | strip_html | strip_newlines | escape }}">

@@ -122,3 +122,38 @@ a{color:inherit;text-decoration:none}}
 .provenance{margin-top:48px;padding-top:4px;border-top:0;font-size:15px}
 .provenance p{margin:0 0 .5em}.provenance p:last-child{margin:0}
 .doc .fulfen-claim__text{border:0;padding:0;margin:0;color:var(--paper)}
+
+/* Light theme, the default, and the theme toggle (fulfen-labs ADR-0039 amendment, owner, 24 Nov 2026): a copy of
+   THEME_CSS in fulfen-labs tools/site.py, so fulfenlabs.io and /kb/ look and switch alike; the choice is shared through
+   localStorage "fulfen-theme" (same origin). Dark is the ink design above. Change it there first, then copy it here. */
+html[data-theme=light]{color-scheme:light;--ink:#F4F2EC;--ink-2:#FFFFFF;--paper:#0A0B0D;--muted:#4A4F57;--line:rgba(10,11,13,.10);--line-strong:rgba(10,11,13,.24);--cds-focus:#8A520A}
+html[data-theme=light] ::selection{color:#0A0B0D}
+html[data-theme=light] :focus-visible{outline-color:#8A520A}
+html[data-theme=light] .btn{color:#0A0B0D}html[data-theme=light] .btn:hover{background:#0A0B0D;border-color:#0A0B0D;color:#F4F2EC}
+html[data-theme=light] .pn b,html[data-theme=light] .stage:before{color:#8A520A}html[data-theme=light] .parts .pn b{color:inherit}
+html[data-theme=light] .stepper .opts label,html[data-theme=light] .stepper button.quiet,html[data-theme=light] .search input{border-color:#4A4F57}
+html[data-theme=light] .stepper .opts label:has(input:checked){border-color:#0A0B0D;background:rgba(10,11,13,.05)}
+html[data-theme=light] .stepper input[type=radio]{accent-color:#0A0B0D}
+html[data-theme=light] header{--ink:#0A0B0D;--ink-2:#101317;--paper:#E9E6DE;--muted:#8B9098;--line:rgba(233,230,222,.10);--line-strong:rgba(233,230,222,.22);color-scheme:dark;background:#0A0B0D;border-bottom-color:#0A0B0D}
+html[data-theme=light] header :focus-visible,html[data-theme=light] .skip:focus-visible{outline-color:#F2A43A}
+@media print{:root{color-scheme:light;--ink:#F4F2EC;--ink-2:#FFFFFF;--paper:#0A0B0D;--muted:#4A4F57;--line:rgba(10,11,13,.10);--line-strong:rgba(10,11,13,.24);--cds-focus:#8A520A}
+:root ::selection{color:#0A0B0D}
+:root :focus-visible{outline-color:#8A520A}
+:root .btn{color:#0A0B0D}:root .btn:hover{background:#0A0B0D;border-color:#0A0B0D;color:#F4F2EC}
+:root .pn b,:root .stage:before{color:#8A520A}:root .parts .pn b{color:inherit}
+:root .stepper .opts label,:root .stepper button.quiet,:root .search input{border-color:#4A4F57}
+:root .stepper .opts label:has(input:checked){border-color:#0A0B0D;background:rgba(10,11,13,.05)}
+:root .stepper input[type=radio]{accent-color:#0A0B0D}
+:root header{--ink:#0A0B0D;--ink-2:#101317;--paper:#E9E6DE;--muted:#8B9098;--line:rgba(233,230,222,.10);--line-strong:rgba(233,230,222,.22);color-scheme:dark;background:#0A0B0D;border-bottom-color:#0A0B0D}
+:root header :focus-visible,:root .skip:focus-visible{outline-color:#F2A43A}
+body{background:#fff}body:before{display:none}.theme-toggle{display:none!important}}
+.theme-toggle{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;padding:0;margin:0;background:transparent;color:var(--paper);border:1px solid var(--muted);border-radius:0;cursor:pointer}
+.theme-toggle:hover{border-color:var(--paper)}
+.theme-toggle svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.theme-toggle[hidden],html:not([data-theme]) .theme-toggle{display:none}
+[data-theme=light] .theme-toggle .sun,[data-theme=dark] .theme-toggle .moon{display:none}
+header .wrap>nav{margin-left:auto}
+@media (max-width:720px){header .theme-toggle{order:1}header .wrap>nav{order:2;flex-basis:100%;margin-left:0}}
+.holding>.theme-toggle{position:absolute;top:16px;right:var(--gut);z-index:5}
+/* The header, measured 24 Nov 2026 with the toggle: one row (69 px) from 721 px; from 641 to 720 px the toggle sits beside the brand and the nav takes its own row (104 px); from 40rem down the header does not stick. */
+@media (max-width:720px) and (min-width:40.0625rem){html{--head:104px}}
